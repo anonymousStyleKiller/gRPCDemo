@@ -16,7 +16,7 @@ public class GreeterService : Greeter.GreeterBase
     {
         return Task.FromResult(new HelloReply
         {
-            Message = "Hello " + request.Test
+            Message = "For testing " + request.Test
         });
     }
 }
