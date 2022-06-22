@@ -15,4 +15,29 @@ public class CustomerService : Customer.CustomerBase
 
         return  Task.FromResult(output);
     }
+
+    public override async Task GetNewCustomers(
+        NewCustomerRequest request, 
+        IServerStreamWriter<CustomerModel> responseStream, 
+        ServerCallContext context)
+    {
+        List<CustomerModel> customer = new()
+        {
+            new CustomerModel
+            {
+                FirstName = "Anton",
+                SecondName = "Kharchenko"
+            },
+            new CustomerModel
+            {
+                FirstName = "Tim",
+                SecondName = "Corey"
+            },
+        };
+
+        foreach (var cust in customer)
+        {
+          await  responseStream.WriteAsync(cust);
+        }
+    }
 }

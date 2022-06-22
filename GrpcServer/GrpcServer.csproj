@@ -8,12 +8,13 @@
 
     <ItemGroup>
         <Protobuf Include="Protos\customers.proto">
-          <GrpcServices>Server</GrpcServices>
+          <GrpcServices>Both</GrpcServices>
           <Access>Public</Access>
           <ProtoCompile>True</ProtoCompile>
           <CompileOutputs>True</CompileOutputs>
           <OutputDir>obj\Debug\net6.0\</OutputDir>
           <Generator>MSBuild:Compile</Generator>
+          <GrpServices>Client</GrpServices>
         </Protobuf>
         <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
     </ItemGroup>

@@ -16,7 +16,12 @@ using GrpcServer;
 
 var channel = GrpcChannel.ForAddress("https://localhost:7100");
 var client = new Customer.CustomerClient(channel);
-var clientRequested = new CustomerLookupModel { UserId = 2 };
-var reply = await client.GetCustomerInfoAsync(clientRequested);
+// var clientRequested = new CustomerLookupModel { UserId = 2 };
+// var reply = await client.GetCustomerInfoAsync(clientRequested);
 
-Console.WriteLine($"Customer {reply.FirstName}, {reply.SecondName}");
+using var call = client.GetNewCustomers(new NewCustomerRequest());
+while (await call.ResponseStream.MoveNext(CancellationToken.None))
+{
+    var currentCustomer = call.ResponseStream.Current;
+    Console.WriteLine($"Customer {currentCustomer.FirstName}, {currentCustomer.SecondName}");
+}
